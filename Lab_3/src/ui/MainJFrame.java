@@ -38,8 +38,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        controlArea.setBackground(new java.awt.Color(255, 255, 204));
+        controlArea.setBackground(new java.awt.Color(51, 51, 51));
 
+        btnAccntMngr.setBackground(new java.awt.Color(255, 255, 204));
         btnAccntMngr.setText("Account Manager");
         btnAccntMngr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,12 +62,14 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(controlAreaLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(btnAccntMngr, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(465, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(controlArea);
 
-        userProcessContainer.setBackground(new java.awt.Color(204, 204, 204));
+        userProcessContainer.setBackground(new java.awt.Color(153, 153, 153));
+        userProcessContainer.setMinimumSize(new java.awt.Dimension(980, 760));
+        userProcessContainer.setSize(new java.awt.Dimension(980, 780));
         userProcessContainer.setLayout(new java.awt.CardLayout());
         jSplitPane1.setRightComponent(userProcessContainer);
 
@@ -78,7 +81,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );

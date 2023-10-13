@@ -40,6 +40,9 @@ public class AccountManagerJPanel extends javax.swing.JPanel {
         btnCreateAcc = new javax.swing.JButton();
         btnManageAcc = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(153, 153, 153));
+
+        btnCreateAcc.setBackground(new java.awt.Color(255, 255, 204));
         btnCreateAcc.setText("Create Account");
         btnCreateAcc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -47,6 +50,7 @@ public class AccountManagerJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnManageAcc.setBackground(new java.awt.Color(255, 255, 204));
         btnManageAcc.setText("Manage Account");
         btnManageAcc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

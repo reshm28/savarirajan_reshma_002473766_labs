@@ -47,6 +47,9 @@ public class ManageAccountJPanel extends javax.swing.JPanel {
         txtSearchAcctNo = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(153, 153, 153));
+
+        tblBankAccounts.setBackground(new java.awt.Color(255, 255, 204));
         tblBankAccounts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -60,6 +63,7 @@ public class ManageAccountJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblBankAccounts);
 
+        btnSearchAcctNo.setBackground(new java.awt.Color(255, 255, 204));
         btnSearchAcctNo.setText("Search by Account Number");
         btnSearchAcctNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,8 +71,15 @@ public class ManageAccountJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnView.setBackground(new java.awt.Color(255, 255, 204));
         btnView.setText("View Details");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
+        btnDelete.setBackground(new java.awt.Color(255, 255, 204));
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +87,9 @@ public class ManageAccountJPanel extends javax.swing.JPanel {
             }
         });
 
+        txtSearchAcctNo.setBackground(new java.awt.Color(255, 255, 204));
+
+        btnBack.setBackground(new java.awt.Color(255, 255, 204));
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +141,15 @@ public class ManageAccountJPanel extends javax.swing.JPanel {
 
     private void btnSearchAcctNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchAcctNoActionPerformed
         // TODO add your handling code here:
+        Account result = accDirectory.searchAccount(txtSearchAcctNo.getText());
+        if (result == null) {
+            JOptionPane.showMessageDialog(null,"Account number you entered does not exist","Information", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            ViewAccountJPanel viewPanel = new ViewAccountJPanel(userProcessContainer, result);
+            userProcessContainer.add("ViewAccountJPanel",viewPanel );
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        }
     }//GEN-LAST:event_btnSearchAcctNoActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -141,15 +164,32 @@ public class ManageAccountJPanel extends javax.swing.JPanel {
         int selectedRow = tblBankAccounts.getSelectedRow();
         if(selectedRow >= 0) {
             int dialogButton = JOptionPane.YES_NO_OPTION;
-            int dialogResult = JOptionPane.showConfirmDialog(null,"Would you like to delete the account details", TOOL_TIP_TEXT_KEY, WIDTH, selectedRow);
-        }
-            
-     
-        else  {
+            int dialogResult = JOptionPane.showConfirmDialog(null,"Would you like to delete the account details","Warning",dialogButton);
+            if (dialogResult == JOptionPane.YES_OPTION){
+                Account account = (Account) tblBankAccounts.getValueAt(selectedRow, 0);
+                accDirectory.deleteAccount(account);
+                populateTable();
+            }
+        } else  {
             JOptionPane.showMessageDialog(null,"Please select a row from table first","Warning", JOptionPane.WARNING_MESSAGE);
         }
         
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+         int selectedRow = tblBankAccounts.getSelectedRow();
+        if(selectedRow < 0) {
+                JOptionPane.showMessageDialog(null,"Please select a row from table first to view details","Warning", JOptionPane.WARNING_MESSAGE);
+            } else  {
+                Account account = (Account) tblBankAccounts.getValueAt(selectedRow, 0);
+                ViewAccountJPanel viewPanel = new ViewAccountJPanel(userProcessContainer, account);
+                userProcessContainer.add("ViewAccountJPanel",viewPanel );
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                layout.next(userProcessContainer);
+        }
+        
+    }//GEN-LAST:event_btnViewActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -168,12 +208,11 @@ public class ManageAccountJPanel extends javax.swing.JPanel {
         
         for (Account account : accDirectory.getAccDirectory()){
             
-            Object[] row = new Object[5];
+            Object[] row = new Object[4];
             row[0] = account;
-            row[1] = account.getRoutingNumber();
+            row[1] = account.getRoutingNumber(); 
             row[2] = account.getAccountNumber();
-            row[3] = account.getBankNmae();
-            row[4] = account.getBalance();
+            row[3] = account.getBalance();
             
             model.addRow(row);
         }

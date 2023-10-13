@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
 
@@ -11,8 +11,8 @@ import java.util.Date;
  * @author reshma
  */
 public class Account {
-
-   private String routingNumber;
+    
+    private String routingNumber;
    private String accountNumber;
    private String bankName;
    private int balance;
@@ -58,6 +58,11 @@ public class Account {
 
     public Date getCreatedOn() {
         return createdOn;
+    }
+
+    @Override
+    public String toString() {
+        return bankName;
     }
    
 }
